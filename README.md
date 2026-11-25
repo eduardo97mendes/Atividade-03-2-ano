@@ -9,6 +9,8 @@
 | `index.html` | **Preencher** todos os `___` com os textos do `modelo.pdf` (inclusive os `alt` das imagens). |
 | `css/style.css` | **Responder** cada propriedade: leia as opções A, B e C e digite o valor certo depois dos `:`. |
 | `css/base.css` | **Não mexer.** |
+| `banco/banco.sql` | **Completar** os `___` e rodar no Beekeeper para criar o banco e a tabela. |
+| `conexao.php` e `salvar.php` | **Completar** os `___` para ligar o formulário de Contato ao banco PostgreSQL. |
 
 Os arquivos já estão soltos neste repositório, **não precisa descompactar nada dentro de outra pasta**.
 
@@ -19,6 +21,8 @@ Os arquivos já estão soltos neste repositório, **não precisa descompactar na
 **PASSO 3:** No **VS Code**: **Arquivo → Abrir Pasta** e escolha a pasta extraída (a que tem `index.html`, `css`, `img` e `modelo.pdf`).
 
 **PASSO 4:** Abra o `index.html` com o **Live Server** e comece pelo HTML; depois responda o `style.css` de cima para baixo.
+
+**PASSO 5:** Com a página pronta, faça a parte de **PHP e banco de dados** (seção [🐘 Parte 2](#-parte-2--php-e-banco-de-dados) mais abaixo).
 
 ---
 
@@ -41,6 +45,13 @@ Atividade-03-Educacao/
 ├── css/
 │   ├── base.css              ← base neutra para a visualização (NÃO EDITAR)
 │   └── style.css             ← SEU EXERCÍCIO: preencher alternativas
+├── banco/
+│   └── banco.sql             ← complete os ___ e rode no Beekeeper
+├── config.exemplo.php        ← modelo SEM senha (pronto)
+├── conexao.php               ← complete os ___ (abre a conexão)
+├── salvar.php                ← complete os ___ (recebe e grava o formulário)
+├── testar_conexao.php        ← pronto: mostra "Conexão OK!"
+├── .gitignore                ← impede o config.php de ir para o GitHub
 └── img/
     ├── golden.avif
     ├── adestrador1.avif
@@ -74,7 +85,7 @@ Atividade-03-Educacao/
 7. Respeite a ordem de importação: no `<head>`, **`base.css` antes de `style.css`**. Não inverta e não apague as duas linhas.
 8. **Preserve a paleta de cores e o layout final do PDF**; versões com cores diferentes não reproduzem a solicitação do cliente.
 9. **Teste a página no computador e no celular** (F12 → alternar dispositivo). Ajuste as opções dentro dos blocos `@media` para caber corretamente.
-10. Os depoimentos são **fictícios**; mantenha essa identificação. O formulário é **apenas demonstrativo**, sem PHP/banco de dados nesta etapa.
+10. Os depoimentos são **fictícios**; mantenha essa identificação. O formulário de Contato será ligado ao banco na **Parte 2**. Não mude os `name` dos campos nem os `value` do `<select>`: o PHP e o banco usam esses nomes.
 
 ### Exemplo de preenchimento
 
@@ -120,6 +131,97 @@ display: flex;      /* DEPOIS: um valor CSS, não a letra B */
 - O comando correto pode produzir uma mudança pequena ou só ser visível ao passar o mouse (`:hover`) ou em tela pequena (`@media`).
 - Use **Ctrl + Shift + R** para atualizar sem cache, se necessário.
 
+## 🐘 Parte 2 · PHP e banco de dados
+
+Agora o formulário de Contato vai **gravar de verdade** no PostgreSQL. O caminho dos dados é:
+
+```text
+formulário (index.html) → salvar.php → conexao.php (usa o config.php) → PostgreSQL (tabela contatos)
+```
+
+No laboratório o **PostgreSQL** e o **Beekeeper Studio** já estão instalados. O **PHP** você instala no passo 1.
+
+> Cada `___` dos arquivos tem uma linha **DICA** logo acima dizendo onde achar a resposta. Quase tudo está no seu `index.html`: use **Ctrl + F** e procure `name="` e `value="`.
+
+### 1. Instalar o PHP (Windows)
+
+1. Baixe o PHP em **windows.php.net/download** → versão **VS17 x64 Non Thread Safe**, arquivo **Zip**.
+2. Extraia em uma pasta, por exemplo `C:\php` (ou `Downloads\php`, se não puder usar o `C:\`).
+3. Dentro dessa pasta, copie `php.ini-development` e renomeie a cópia para **`php.ini`**.
+4. Abra o `php.ini` no VS Code e, com **Ctrl + F**, deixe estas linhas assim (tire o `;` do começo):
+   ```ini
+   extension_dir = "ext"
+   extension=pdo_pgsql
+   extension=pgsql
+   extension=mbstring
+   ```
+   Se der erro de extensão não encontrada, troque `"ext"` pelo caminho completo, ex.: `"C:\php\ext"`.
+5. Teste no terminal do VS Code: `C:\php\php.exe -v` (use o caminho da sua pasta). Tem que aparecer `PHP 8...`.
+
+> Se o comando `php` sozinho der **"não é reconhecido"**, é porque o PHP não está no PATH do Windows. Sem problema: use sempre o caminho completo, como `& "C:\php\php.exe" -S localhost:8000`.
+
+### 2. Criar o banco no Beekeeper (`banco/banco.sql`)
+
+1. Complete os `___` do `banco/banco.sql`.
+2. No Beekeeper, conecte no PostgreSQL (`localhost`, porta `5432`, usuário `postgres` e a senha do laboratório).
+3. Rode **uma parte por vez**: selecione o trecho com o mouse e aperte **Ctrl + Enter**.
+   - **Parte 1** (conectado no banco `postgres`): cria o banco `educacao`.
+   - **Troque para o banco `educacao`** (seletor de banco no topo do Beekeeper) antes da Parte 2.
+   - **Parte 2**: cria a tabela `contatos`. **Parte 3**: grava uma linha de teste e mostra com `SELECT`.
+
+### 3. Criar o `config.php` (a senha fica só nele)
+
+1. Copie o `config.exemplo.php` e renomeie a **cópia** para **`config.php`**.
+2. No `config.php`, troque `SUA_SENHA_AQUI` pela senha do PostgreSQL.
+3. O `.gitignore` já tem a linha `config.php`: **a senha nunca vai para o GitHub**. Não apague o `.gitignore`.
+
+### 4. Completar `conexao.php` e `salvar.php`
+
+| Arquivo | O que faz |
+| --- | --- |
+| `conexao.php` | Lê o `config.php` e abre a conexão com o banco (`$pdo`). |
+| `salvar.php` | **1. Recebe** os campos do formulário · **2. Confere** se estão certos · **3. Grava** na tabela `contatos`. |
+| `testar_conexao.php` | Já vem pronto. Serve para testar a conexão antes do formulário. |
+
+O `<form>` do `index.html` já vem pronto apontando para o PHP: `action="salvar.php" method="post"`. Não mude.
+
+### 5. Ligar o servidor do PHP e testar
+
+O **Live Server não executa PHP**. No VS Code abra **Terminal → New Terminal** (na pasta do projeto) e rode:
+
+```powershell
+& "C:\php\php.exe" -S localhost:8000
+```
+
+Deixe esse terminal aberto e, no navegador:
+
+1. `http://localhost:8000/testar_conexao.php` → tem que aparecer **Conexão OK!** e a tabela `contatos` encontrada.
+2. `http://localhost:8000/index.html` → preencha o Contato e clique em **Enviar mensagem**.
+
+Faça estes testes:
+
+| Teste | O endereço volta terminando em | Grava no banco? |
+| --- | --- | --- |
+| Tudo preenchido certo | `?enviado=1#contato` | sim |
+| Tudo vazio | `?erro=nome,email,servico,mensagem#contato` | não |
+| F12: mude o `value` de uma `<option>` para outro texto e envie | `?erro=servico#contato` | não |
+| Nome: `Robert'); DROP TABLE contatos;--` | `?enviado=1#contato` | grava como texto; a tabela continua lá |
+| Abrir `localhost:8000/salvar.php` direto | `index.html#contato` | não |
+
+Confira no Beekeeper (banco `educacao`): `SELECT * FROM contatos ORDER BY id;` Cada envio é uma linha nova.
+
+### 🔧 Se der erro no PHP
+
+| O que aparece | O que fazer |
+| --- | --- |
+| `'php' não é reconhecido` | Use o caminho completo: `& "C:\php\php.exe" -S localhost:8000`. |
+| `could not find driver` | No `php.ini`, tire o `;` de `extension=pdo_pgsql` e `extension=pgsql` e reinicie o `php -S`. |
+| `Não foi possível conectar ao banco de dados.` | Confira senha, banco (`educacao`) e porta no `config.php`. O detalhe do erro aparece no terminal do `php -S`. |
+| `Failed opening required ... config.php` | Falta criar o `config.php` (copie o `config.exemplo.php`). |
+| A página baixa o arquivo `.php` ou mostra o código | Você abriu pelo Live Server. Use `http://localhost:8000/...`. |
+| `A tabela contatos não existe` | Rode a Parte 2 do `banco.sql` **no banco `educacao`**. |
+| Volta com `?erro=banco` | A tabela recusou os dados: confira se os nomes das colunas e os valores do `CHECK` estão iguais aos do formulário. |
+
 ## ✅ Entrega e critérios de avaliação
 
 📅 **Entregar entre 30/11 e 04/12.**
@@ -133,12 +235,14 @@ Entregue a pasta ou publique o trabalho no **seu repositório do GitHub** com:
 - [ ] cores, tamanhos e composição coerentes com as duas páginas de `modelo.pdf`;
 - [ ] alinhamento correto de menu, três serviços, diferenciais, depoimentos, formulário e rodapé;
 - [ ] versão responsiva testada no celular;
-- [ ] imagem da página pronta (captura de tela) comparada ao PDF.
+- [ ] imagem da página pronta (captura de tela) comparada ao PDF;
+- [ ] `banco/banco.sql`, `conexao.php` e `salvar.php` sem nenhum `___`;
+- [ ] `testar_conexao.php` mostrando **Conexão OK!**;
+- [ ] os 5 testes da tabela da Parte 2 funcionando;
+- [ ] captura de tela do Beekeeper com o `SELECT * FROM contatos` mostrando os seus envios;
+- [ ] **sem** o `config.php` no GitHub (só o `config.exemplo.php`).
 
 **Sugestão de critérios (100 pontos):** HTML e textos 20; preenchimento correto das propriedades CSS 30; fidelidade visual e cores 25; responsividade 15; organização, arquivos e publicação 10.
 
 Para entregar no GitHub: crie um repositório próprio, envie **toda** a pasta do projeto e mantenha os nomes dos arquivos. Na descrição da atividade, mencione o professor no formato `@eduardo97mendes` (marcação em texto) e adicione uma captura de tela da página pronta.
 
----
-
-**Próximas etapas:** em aulas futuras poderão ser acrescentados JavaScript, PHP e PostgreSQL, mas **não fazem parte desta entrega de HTML/CSS**.

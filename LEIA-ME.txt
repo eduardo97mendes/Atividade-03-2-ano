@@ -1,0 +1,14 @@
+PARTE 2 · PHP E BANCO DE DADOS — EducaCão (2º ano)
+
+As instruções completas estão no README.md (seção "Parte 2").
+
+1. Complete cada ___ . A linha DICA logo acima diz onde achar a resposta.
+   Quase tudo está no index.html (Ctrl + F: name=" e value=").
+2. Ordem: banco.sql (no Beekeeper) -> config.php -> conexao.php ->
+   testar_conexao.php -> salvar.php.
+3. O config.php você cria copiando o config.exemplo.php e colocando a senha.
+   Ele NÃO vai para o GitHub.
+4. A tag <form> do index.html já vem pronta:
+   <form class="contact-form" action="salvar.php" method="post">
+5. Rode com o servidor do PHP (o Live Server não executa PHP):
+   & "C:\php\php.exe" -S localhost:8000
