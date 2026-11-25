@@ -246,6 +246,25 @@ Confira no Beekeeper (banco `educacao`): `SELECT * FROM contatos ORDER BY id;` C
 | `A tabela contatos não existe` | Rode a Parte 2 do `banco.sql` **no banco `educacao`**. |
 | Volta com `?erro=banco` | A tabela recusou os dados: confira se os nomes das colunas e os valores do `CHECK` estão iguais aos do formulário. |
 
+## 🏠 Faltou à aula ou é aluno do RAD (atividade em casa)?
+
+Se você **não compareceu à aula** (por qualquer motivo) ou é **aluno do RAD** e faz a atividade em casa:
+
+1. **Finalize a atividade em casa**, seguindo este README (e os PDFs da pasta `explicacao/`, se tiver dúvida).
+2. **Publique no seu repositório do GitHub** (veja "Como postar no GitHub e me avisar", logo abaixo).
+3. **Envie o link do seu repositório** para o professor: pela **Issue** neste repositório e/ou pelo **WhatsApp**.
+
+### 🎥 Não mostrou o projeto pronto no laboratório? Grave um vídeo
+
+Se o seu projeto **não foi apresentado funcionando no laboratório**, grave um **vídeo da tela** e envie junto com o link do repositório:
+
+- No começo do vídeo, **diga em voz alta: seu nome completo, a disciplina e a sua turma**.
+- Mostre **o que você fez**: abra os arquivos no VS Code e passe pelas partes que completou.
+- Mostre **o resultado final** funcionando no navegador, do topo ao rodapé da página.
+- Duração sugerida: de **2 a 5 minutos**.
+- Para gravar a tela no Windows: **Windows + Alt + R** (Xbox Game Bar) ou a **Ferramenta de Captura** (Windows + Shift + S → ícone de vídeo). No celular, o gravador de tela também serve.
+- Envie o vídeo pelo **WhatsApp** ou coloque o link do vídeo (Google Drive, YouTube não listado) na Issue.
+
 ## ✅ Entrega e critérios de avaliação
 
 📅 **Entregar entre 30/11 e 04/12.**
