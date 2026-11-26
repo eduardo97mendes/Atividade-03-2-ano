@@ -1,14 +1,11 @@
-PARTE 2 · PHP E BANCO DE DADOS — EducaCão (2º ano)
+ATIVIDADE 03 · 2º ANO — HTML, CSS, PHP E BANCO DE DADOS (EducaCão)
+Prazo de entrega: de 30/11 a 04/12.
 
-As instruções completas estão no README.md (seção "Parte 2").
+TODO O PASSO A PASSO ESTÁ NOS PDFs da pasta explicacao/. Siga na ordem:
+  1_HTML_e_CSS.pdf              -> index.html e css/style.css
+  2_PHP_e_Banco_de_Dados.pdf    -> PHP, banco.sql, config.php, conexao.php e salvar.php
 
-1. Complete cada ___ . A linha DICA logo acima diz onde achar a resposta.
-   Quase tudo está no index.html (Ctrl + F: name=" e value=").
-2. Ordem: banco.sql (no Beekeeper) -> config.php -> conexao.php ->
-   testar_conexao.php -> salvar.php.
-3. O config.php você cria copiando o config.exemplo.php e colocando a senha.
-   Ele NÃO vai para o GitHub.
-4. A tag <form> do index.html já vem pronta:
-   <form class="contact-form" action="salvar.php" method="post">
-5. Rode com o servidor do PHP (o Live Server não executa PHP):
-   & "C:\php\php.exe" -S localhost:8000
+PHP e SQL: complete cada ___ . A linha DICA logo acima diz onde achar a resposta.
+O config.php (com a senha) NÃO vai para o GitHub.
+
+Entrega e como me avisar pelo GitHub: veja o README.md.
